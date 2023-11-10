@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://bu1lra6vmvnrb"]
+
+[ext_resource type="Script" path="res://Scripts/intractive/Coin.gd" id="1_idtks"]
+[ext_resource type="Texture2D" uid="uid://cxc78w3pralkq" path="res://Treasure Hunters/Pirate Treasure/Sprites/Gold Coin/03.png" id="2_ffolh"]
+[ext_resource type="Texture2D" uid="uid://cl0d6oyqpp8qk" path="res://Treasure Hunters/Pirate Treasure/Sprites/Gold Coin/01.png" id="3_n0v2y"]
+[ext_resource type="Texture2D" uid="uid://ctbomsv0tgtu6" path="res://Treasure Hunters/Pirate Treasure/Sprites/Gold Coin/02.png" id="4_jxt7d"]
+[ext_resource type="Texture2D" uid="uid://4f7srwfadc4t" path="res://Treasure Hunters/Pirate Treasure/Sprites/Gold Coin/04.png" id="5_fme54"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q6jg6"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_jxlq8"]
+resource_name = "idle"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_n0v2y"), ExtResource("4_jxt7d"), ExtResource("2_ffolh"), ExtResource("5_fme54")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_60tj2"]
+_data = {
+"idle": SubResource("Animation_jxlq8")
+}
+
+[node name="Coin" type="Node2D"]
+script = ExtResource("1_idtks")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_n0v2y")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.443188, 0.334087)
+shape = SubResource("CircleShape2D_q6jg6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_60tj2")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
